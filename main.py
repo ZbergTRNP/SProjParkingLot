@@ -19,10 +19,10 @@ def empty(a):
  
  
 cv2.namedWindow("Options")
-cv2.resizeWindow("Vals", 640, 240)
-cv2.createTrackbar("Val1", "Vals", 25, 50, empty)
-cv2.createTrackbar("Val2", "Vals", 16, 50, empty)
-cv2.createTrackbar("Val3", "Vals", 5, 50, empty)
+cv2.resizeWindow("Options", 640, 240)
+cv2.createTrackbar("Val1", "Options", 25, 50, empty)
+cv2.createTrackbar("Val2", "Options", 16, 50, empty)
+cv2.createTrackbar("Val3", "Options", 5, 50, empty)
  
  
 def checkSpaces():
@@ -47,9 +47,9 @@ def checkSpaces():
  
         cv2.putText(img, str(cv2.countNonZero(imgCrop)), (x, y + h - 6), cv2.FONT_HERSHEY_PLAIN, 1,
                     color, 2)
- 
-    cvzone.putTextRect(img, f'Free: {spaces}/{len(posList)}', (50, 60), thickness=3, offset=20,
-                       colorR=(0, 200, 0))
+
+    cvzone.putTextRect(img, f'Free: {spaces}/{len(posList)}', (50, 60), thickness=3, offset=10,
+                       colorR=(40, 40, 40))
  
  
 while True:
@@ -63,9 +63,9 @@ while True:
     imgBlur = cv2.GaussianBlur(imgGray, (3, 3), 1)
     ret, imgThres = cv2.threshold(imgBlur, 150, 255, cv2.THRESH_BINARY)
     
-    val1 = cv2.getTrackbarPos("Val1", "Vals")
-    val2 = cv2.getTrackbarPos("Val2", "Vals")
-    val3 = cv2.getTrackbarPos("Val3", "Vals")
+    val1 = cv2.getTrackbarPos("Val1", "Options")
+    val2 = cv2.getTrackbarPos("Val2", "Options")
+    val3 = cv2.getTrackbarPos("Val3", "Options")
     if val1 % 2 == 0: val1 += 1
     if val3 % 2 == 0: val3 += 1
     imgThres = cv2.adaptiveThreshold(imgBlur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
