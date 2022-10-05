@@ -2,10 +2,15 @@ import cv2
 import pickle
 import cvzone
 import numpy as np
- 
-cap = cv2.VideoCapture('carPark.mp4')
+from vidstab import VidStab
+
+filepath = 'carPark.mp4'
+stabilizer = VidStab()
+stabilizer.stabilize(input_path=filepath, output_path='Output.mp4')
+
+cap = cv2.VideoCapture('Output.mp4')
 width, height = 103, 43
-with open('polygons', 'rb') as f:
+with open('CarParkPos', 'rb') as f:
     posList = pickle.load(f)
  
  
@@ -13,7 +18,7 @@ def empty(a):
     pass
  
  
-cv2.namedWindow("Vals")
+cv2.namedWindow("Options")
 cv2.resizeWindow("Vals", 640, 240)
 cv2.createTrackbar("Val1", "Vals", 25, 50, empty)
 cv2.createTrackbar("Val2", "Vals", 16, 50, empty)
@@ -56,10 +61,9 @@ while True:
     # img = cv2.imread('img.png')
     imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     imgBlur = cv2.GaussianBlur(imgGray, (3, 3), 1)
-    # ret, imgThres = cv2.threshold(imgBlur, 150, 255, cv2.THRESH_BINARY)
- 
-.
-val1 = cv2.getTrackbarPos("Val1", "Vals")
+    ret, imgThres = cv2.threshold(imgBlur, 150, 255, cv2.THRESH_BINARY)
+    
+    val1 = cv2.getTrackbarPos("Val1", "Vals")
     val2 = cv2.getTrackbarPos("Val2", "Vals")
     val3 = cv2.getTrackbarPos("Val3", "Vals")
     if val1 % 2 == 0: val1 += 1
@@ -73,7 +77,7 @@ val1 = cv2.getTrackbarPos("Val1", "Vals")
     checkSpaces()
     # Display Output
  
-    cv2.imshow("Image", img)
+    cv2.imshow("Output", img)
     # cv2.imshow("ImageGray", imgThres)
     # cv2.imshow("ImageBlur", imgBlur)
     key = cv2.waitKey(1)
