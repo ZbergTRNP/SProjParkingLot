@@ -1,4 +1,3 @@
-@@ -1,4 +1,5 @@
 <div id="top"></div>
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
@@ -74,7 +73,6 @@
 
 Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `github_username`, `repo_name`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -89,7 +87,6 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 * [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![JQuery][JQuery.com]][JQuery-url]
 
-<p align="right">(<a href="#top">back to top</a>)</p>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
