@@ -20,7 +20,7 @@ def empty(a):
  
 cv2.namedWindow("Options")
 cv2.resizeWindow("Options", 640, 240)
-cv2.createTrackbar("Val1", "Options", 25, 50, empty)
+cv2.createTrackbar("Val1", "Options", 34, 50, empty)
 cv2.createTrackbar("Val2", "Options", 16, 50, empty)
 cv2.createTrackbar("Val3", "Options", 5, 50, empty)
  
