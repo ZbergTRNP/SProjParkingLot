@@ -24,7 +24,7 @@ cv2.createTrackbar("Val1", "Options", 34, 50, empty)
 cv2.createTrackbar("Val2", "Options", 16, 50, empty)
 cv2.createTrackbar("Val3", "Options", 5, 50, empty)
  
- 
+#
 def checkSpaces():
     spaces = 0
     for pos in posList:
@@ -51,7 +51,7 @@ def checkSpaces():
     cvzone.putTextRect(img, f'Free: {spaces}/{len(posList)}', (50, 60), thickness=3, offset=10,
                        colorR=(40, 40, 40))
  
- 
+
 while True:
  
     # Get image frame
