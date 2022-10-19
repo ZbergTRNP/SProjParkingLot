@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <title>Parking Lot Livestream</title>
+</head>
+<body>
+
+<h1>Parking Lot Livestream</h1>
+
+<h2>Livestream</h2>
+<!-- This is showing how it will work in the future -->
+<!-- To get this to work, we need to get the python code to work within the webpage-->
+<video width="640" height="480" autoplay muted>
+    <source src="C:\Users\ccadam2811\Downloads\SProjParkingLot\SProjParkingLot-main\carPark.mp4" type="video/mp4">
+</video>
+<!--Video needs to be from database-->
+
+<!--This would highlight all empty spots, or give a message saying all spots are full-->
+<h3>Find a Spot</h3>
+<button onclick="findSpot()">Find Spot</button>
+
+
+<!-- Potential Feature -->
+<h3>Find Your Car</h3>
+<form>
+    <label for="cColor">Color of Car:</label>
+    <input type="Text" id="cColor" name="cColor"><br><br>
+</form>
+<button type="button">Find your Car</button>
+
+<!-- <label for="myfile">Select a file:</label>
+<input type="file" id="myfile" name="myfile"> -->
+
+<script>
+    // this function needs editing
+    function findSpot() {
+        alert("Parking Lot is Full");
+    }
+
+</script>
+
+</body>
+</html>
