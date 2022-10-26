@@ -126,7 +126,7 @@ _Below is an example of how you can instruct your audience on installing and set
 2. Create a New Project, Required in the project folder is main.py and a Media Format for Input (We are using carPark.mp4)
 3. Download packages: Cvzone and Vidstab
    ```sh
-   In Pycharm: Files > Settings > Project > Python Interpreter > Hit the Plus Sign
+   In Pycharm: Files > Settings > Project > Python Interpreter > Hit the Plus Sign > Search For Cvzone and Vidstab to Import Them
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
