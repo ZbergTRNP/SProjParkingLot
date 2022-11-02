@@ -9,15 +9,6 @@ image_file = 'carParkImg.png'
 stabilizer.stabilize(input_path=filepath, output_path='Output.mp4')
 
 # Caps Video and Sets it to Cap with "CarParkPos" as the position list for spots
-cap = cv2.VideoCapture('Output.mp4')
-width, height = 103, 43
-with open(image_file, 'rb') as f:
-    posList = pickle.load(f)
-
-#cap = cv2.VideoCapture('Output.mp4')
-#width, height = 103, 43
-#with open(image_file, 'rb') as f:
-    #posList = pickle.load(f)
 video_file = 'Output.mp4'
 start_frame = 1
 while True:
