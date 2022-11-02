@@ -1,21 +1,11 @@
-import cv2
-import yaml
-import pickle
 import cvzone
 import numpy as np
 from coordinates_generator import CoordinatesGenerator
+from motion_detector import MotionDetector
 from vidstab import VidStab
 
 image_file = 'carParkImg.png'
-data_file = 'data/coordinates.yml'
-
-if image_file is not None:
-    with open(data_file, "w+") as points:
-        generator = CoordinatesGenerator(image_file, points, (255, 0, 0))
-        generator.generate()
-
-filepath = 'carPark.mp4'
-stabilizer = VidStab()
+@@ -19,11 +20,17 @@
 stabilizer.stabilize(input_path=filepath, output_path='Output.mp4')
 
 # Caps Video and Sets it to Cap with "CarParkPos" as the position list for spots
@@ -24,10 +14,20 @@ width, height = 103, 43
 with open(image_file, 'rb') as f:
     posList = pickle.load(f)
 
+#cap = cv2.VideoCapture('Output.mp4')
+#width, height = 103, 43
+#with open(image_file, 'rb') as f:
+    #posList = pickle.load(f)
+video_file = 'Output.mp4'
+start_frame = 1
+while True:
+    with open(data_file, "r") as data:
+        points = yaml.safe_load(data)
+        detector = MotionDetector(video_file, points, int(start_frame))
+        detector.detect_motion()
 
 def empty(a):
     pass
-
 
 # Creates and Handles Options Window, First Number is Starting Num
 cv2.namedWindow("Options")
