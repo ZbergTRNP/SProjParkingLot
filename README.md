@@ -38,8 +38,6 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
 The problem we seek to solve with this project is the inconveniences of parking lots in large events and often traveled complexes. This problem arises at the massive size of parking lots and the similarities in each one. At some points it becomes incredibly difficult to find a spot in larger gatherings of people, even if that gathering offers rather large areas to park in. The reality is that vendors will overbook concerts, malls will fill up on holidays, and finding a parking spot in heavily trafficked areas remains an issue. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
