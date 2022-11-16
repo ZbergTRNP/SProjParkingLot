@@ -46,7 +46,7 @@ The problem we seek to solve with this project is the inconveniences of parking 
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+This section lists major frameworks/libraries used to bootstrap the project. This section needs to be updated once the library is set in stone. See Installation for the Current Library.
 
 * [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
@@ -81,9 +81,9 @@ _Below is an example of how you can instruct your audience on installing and set
 
 1. Download a Python IDE (We're using Pycharm)
 2. Create a New Project, Required in the project folder is main.py and a Media Format for Input (We are using carPark.mp4)
-3. Download packages: Cvzone, Vidstab, PyYAML
+3. Download packages: Cvzone, Vidstab, Gradio, PyYAML
    ```sh
-   In Pycharm: Files > Settings > Project > Python Interpreter > Hit the Plus Sign > Search For Cvzone, Vidstab, and PyYAML to Import Them
+   In Pycharm: Files > Settings > Project > Python Interpreter > Hit the Plus Sign > Search For Cvzone, Vidstab, Gradio, and PyYAML to Import Them
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -93,9 +93,8 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+Currently it is in the Demo Phase, to test the program, after running insert into the Gradio interface the file name "carParkStbOut.avi" without the quotations. 
 
-_For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
