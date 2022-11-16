@@ -1,101 +1,70 @@
 import cv2
 import yaml
-import pickle
-import cvzone
-import numpy as np
 from coordinates_generator import CoordinatesGenerator
 from motion_detector import MotionDetector
 from vidstab import VidStab
+import gradio as gr
+import time
 
+# Testing Variables
 image_file = 'carParkImg.png'
-data_file = 'data/coordinates.yml'
-
-if image_file is not None:
-    with open(data_file, "w+") as points:
-        generator = CoordinatesGenerator(image_file, points, (255, 0, 0))
-        generator.generate()
-
-image_file = 'carParkImg.png'
-#stabilizer.stabilize(input_path=filepath, output_path='Output.mp4')
-
-# Caps Video and Sets it to Cap with "CarParkPos" as the position list for spots
-video_file = 'Output.mp4'
+data_base = 'data/coordinates.yml'
+filepath = 'carPark.mp4'
 start_frame = 1
-while True:
-    with open(data_file, "r") as data:
-        points = yaml.safe_load(data)
-        detector = MotionDetector(video_file, points, int(start_frame))
-        detector.detect_motion()
 
-def empty(a):
-    pass
+# Stabilizes Output (Have to Find a Way to Do This Outside of Videos)
+stabilizer = VidStab()
+stabilizer.stabilize(input_path=filepath, output_path=filepath.replace('.mp4', '') + 'StbOut.avi')
+video_file = filepath.replace('.mp4', '') + 'StbOut.avi'
 
-# Creates and Handles Options Window, First Number is Starting Num
-cv2.namedWindow("Options")
-cv2.resizeWindow("Options", 640, 240)
-cv2.createTrackbar("Val1", "Options", 34, 50, empty)
-cv2.createTrackbar("Val2", "Options", 16, 50, empty)
-cv2.createTrackbar("Val3", "Options", 5, 50, empty)
+# Sets Up For Demo
+data_file = data_base.replace('/', '/' + video_file.replace('.avi', ''))
+init = open(data_base.replace('/', '/' + video_file.replace('.avi', '')), "w")
+init.close()
 
+# Sets Up Image Analysis
+def img(Stream_Link):
+    global data_file, imageName
+    if Stream_Link is not None:
+        vidCap = cv2.VideoCapture(Stream_Link)
+        if vidCap.isOpened():
+            time.sleep(0.5)
+            ret, frame = vidCap.read()  # capture a frame from live video
+            imageName = Stream_Link.replace('.avi', '') + 'img.jpg'
+            f = open(data_base.replace('/', '/' + video_file.replace('.avi', '')), "w")
+            data_file = data_base.replace('/', '/' + video_file.replace('.avi', ''))
+            f.close()
+            cv2.imwrite(imageName, frame)
+        with open(data_file, "w+") as points:
+            generator = CoordinatesGenerator(imageName, points, (255, 0, 0))
+            generator.generate()
+    return data_file
 
-def checkSpaces():
-    spaces = 0
-    for pos in posList:
-        x, y = pos
-        w, h = width, height
+# Sets Up Motion Detection
+def vid(streamInput, dataFile):
+    while True:
+        with open(dataFile, "r") as data:
+            points = yaml.safe_load(data)
+            detector = MotionDetector(streamInput, points, int(start_frame))
+            detector.detect_motion()
+            # Experimental
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
 
-        imgCrop = imgThres[y:y + h, x:x + w]
-        count = cv2.countNonZero(imgCrop)
-
-        if count < 900:
-            color = (0, 200, 0)
-            thic = 5
-            spaces += 1
-
-        else:
-            color = (0, 0, 200)
-            thic = 2
-
-        cv2.rectangle(img, (x, y), (x + w, y + h), color, thic)
-
-        cv2.putText(img, str(cv2.countNonZero(imgCrop)), (x, y + h - 6), cv2.FONT_HERSHEY_PLAIN, 1,
-                    color, 2)
-
-    cvzone.putTextRect(img, f'Free: {spaces}/{len(posList)}', (50, 60), thickness=3, offset=10,
-                       colorR=(40, 40, 40))
-
-
-while True:
-
-    # Get image frame
-    success, img = cap.read()
-    if cap.get(cv2.CAP_PROP_POS_FRAMES) == cap.get(cv2.CAP_PROP_FRAME_COUNT):
-        cap.set(cv2.CAP_PROP_POS_FRAMES, 0)
-    # img = cv2.imread('img.png')
-    imgGray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    imgBlur = cv2.GaussianBlur(imgGray, (3, 3), 1)
-    ret, imgThres = cv2.threshold(imgBlur, 150, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    # Sets up Trackbars for Calibration
-    val1 = cv2.getTrackbarPos("Val1", "Options")
-    val2 = cv2.getTrackbarPos("Val2", "Options")
-    val3 = cv2.getTrackbarPos("Val3", "Options")
-
-    # Makes sure values are set correctly
-    if val1 % 2 == 0: val1 += 1
-    if val3 % 2 == 0: val3 += 1
-    # Uses Vals to do Thresholding on the Video For Calibration
-    imgThres = cv2.adaptiveThreshold(imgBlur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
-                                     cv2.THRESH_BINARY_INV, val1, val2)
-    imgThres = cv2.medianBlur(imgThres, val3)
-    kernel = np.ones((3, 3), np.uint8)
-    imgThres = cv2.dilate(imgThres, kernel, iterations=1)
-
-    checkSpaces()
-    # Display Output
-
-    cv2.imshow("Output", img)
-    # cv2.imshow("ImageGray", imgThres)
-    # cv2.imshow("ImageBlur", imgBlur)
-    key = cv2.waitKey(1)
-    if key == ord('r'):
-        pass
+# Sets Up Web-Face
+with gr.Blocks() as demo:
+    gr.Markdown("Analyze Parking Lots With This Demo.")
+    with gr.Tab("Parking Lot Analysis"):
+        with gr.Row():
+            text_input = gr.Textbox(placeholder="Stream Link Here: ")
+        with gr.Row():
+            output = gr.File(interactive=False)
+        text_button = gr.Button("Analyze")
+    with gr.Tab("Motion Detector"):
+        with gr.Row():
+            strmInput = gr.Textbox(label="Input Stream:", placeholder="Stream Link Here: ")
+            data_input = gr.File(label="Input Analyzed Lot", interactive=True)
+        video_button = gr.Button("Detect")
+    text_button.click(img, inputs=text_input, outputs=output)
+    video_button.click(vid, inputs=[strmInput, data_input], outputs=None)
+demo.launch()
