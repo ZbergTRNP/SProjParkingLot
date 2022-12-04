@@ -62,8 +62,6 @@ This section lists major frameworks/libraries used to bootstrap the project. Thi
 
 ## Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
-
 1. Download a Python IDE (We're using Pycharm)
 2. Create a New Project, Required in the project folder is main.py and a Media Format for Input (We are using carPark.mp4)
 3. Download packages: Cvzone, Vidstab, Gradio, PyYAML
