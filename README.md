@@ -46,18 +46,10 @@ The problem we seek to solve with this project is the inconveniences of parking 
 
 ### Built With
 
-This section lists major frameworks/libraries used to bootstrap the project. This section needs to be updated once the library is set in stone. See Installation for the Current Library.
-
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+* Python
+* OpenCV
+* Gradio
+* VidStb
 
 
 ## Installation
