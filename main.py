@@ -22,6 +22,7 @@ data_file = data_base.replace('/', '/' + video_file.replace('.avi', ''))
 init = open(data_base.replace('/', '/' + video_file.replace('.avi', '')), "w")
 init.close()
 
+
 # Sets Up Image Analysis
 def img(Stream_Link):
     global data_file, imageName
@@ -40,23 +41,26 @@ def img(Stream_Link):
             generator.generate()
     return data_file
 
+
 # Sets Up Motion Detection
 def vid(streamInput, dataFile):
-    while True:
-        with open(dataFile, "r") as data:
-            points = yaml.safe_load(data)
-            detector = MotionDetector(streamInput, points, int(start_frame))
-            detector.detect_motion()
-            # Experimental
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
+    with open(str(dataFile.name), "r") as data:
+        points = yaml.safe_load(data)
+        detector = MotionDetector(streamInput, points, int(start_frame))
+        detector.detect_motion()
+    return None
+
+
+def dbLoad(dbKey):
+    dbKey = None
+
 
 # Sets Up Web-Face
 with gr.Blocks() as demo:
     gr.Markdown("Analyze Parking Lots With This Demo.")
     with gr.Tab("Parking Lot Analysis"):
         with gr.Row():
-            text_input = gr.Textbox(placeholder="Stream Link Here: ")
+            text_input = gr.Textbox(label="Stream Link", placeholder="Stream Link Here: ")
         with gr.Row():
             output = gr.File(interactive=False)
         text_button = gr.Button("Analyze")
@@ -64,6 +68,8 @@ with gr.Blocks() as demo:
         with gr.Row():
             strmInput = gr.Textbox(label="Input Stream:", placeholder="Stream Link Here: ")
             data_input = gr.File(label="Input Analyzed Lot", interactive=True)
+        with gr.Row():
+            database = gr.Textbox.change(fn=dbLoad, inputs=strmInput, outputs="Text")
         video_button = gr.Button("Detect")
     text_button.click(img, inputs=text_input, outputs=output)
     video_button.click(vid, inputs=[strmInput, data_input], outputs=None)
